@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "stocks-angular"
+  "defaultProject": "stocks-angular",
+  "cli": {
+    "analytics": "1bf1b8f6-f949-4398-a63f-d3565e7fb3df"
+  }
 }

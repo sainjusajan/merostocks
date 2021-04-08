@@ -13,9 +13,7 @@
     "array-type": false,
     "arrow-return-shorthand": true,
     "curly": true,
-    "deprecation": {
-      "severity": "warning"
-    },
+    
     "eofline": true,
     "import-blacklist": [
       true,
@@ -52,6 +50,7 @@
       "trace"
     ],
     "no-empty": false,
+    "no-string-literal": false,
     "no-inferrable-types": [
       true,
       "ignore-params"
@@ -83,7 +82,7 @@
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {

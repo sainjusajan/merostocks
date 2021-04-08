@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-4 ">
+    <a style="text-decoration: none; color: white;">
+      <h2 style="margin: 50px 0 25px;">{{partner.name}}</h2>
+    </a>
+  </div>
+</div>
+
+<table class="table table-responsive stocks-data-table">
+  <thead>
+    <tr>
+      <td>Symbol</td>
+      <td style="width: 275px;">Company</td>
+      <td>52 weeks high</td>
+      <td>52 weeks low</td>
+      <td>Previous Close</td>
+      <td style="width: 90px">LTP</td>
+      <td>Balance</td>
+      <td>Value as of Ltp</td>
+
+      <td style="width: 130px; min-width: 135px;">Date</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="{{getStatus(rec.records[0].previous_close, rec.records[0].stock_close)}}" *ngFor="let rec of partner.stock_ownerships">
+      <td>{{rec.company.symbol}}</td>
+      <td>{{rec.company.name}}</td>
+      <td>{{rec.records[0].fifty_two_weeks_high}}</td>
+      <td>{{rec.records[0].fifty_two_weeks_low}}</td>
+      <td>{{rec.records[0].previous_close}}</td>
+      <td>{{rec.records[0].stock_close}}</td>
+      <td>{{rec.balance}}</td>
+      <td style="position: relative;" id="value-as-of-ltp-container">
+        <div id="value-as-of-ltp">{{rec.ltp_value}} 
+          <p class="diff-data">{{getDiffData(rec.records[0].previous_close, rec.records[0].stock_close, rec.balance)}}</p>
+        </div>
+      </td>
+      <td>{{rec.records[0].date | date}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr style="background:#e3f7e3;">
+      <td colspan="7"><b>TOTAL</b></td>
+      <td class="partner-total" style="font-weight: bold;font-size: 20px;">{{formatter.format(total)}}</td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>

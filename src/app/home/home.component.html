@@ -1,0 +1,30 @@
+<div class="body-overlay"></div>
+<section class="container">
+  <div
+  class="card mt-4 shadow"
+  *ngIf="usr$ | async as user"
+  style="background: black"
+>
+  <h4 class="card-header">Hi {{ user.username }},</h4>
+  
+</div>
+</section>
+
+
+<section class="main-content">
+  <div class="container">
+
+    <div class="overview">
+      <h1>Stocks </h1>
+      <button id="reload" class="btn btn-primary" style="width: 150px;">Reload</button>
+      <a id="reload" class="btn btn-info partners-btn" style="width: 150px;">Partners' Info</a>
+      <h1 style="position: relative;">Total Value: <span id="total-value" style="color: #1a9c1a;">{{formatter.format(total)}}</span><span id="total-diff">{{diff}}</span></h1>
+    </div>
+    
+ <ng-container *ngIf="partners">
+   <app-partner-overview [partner]=partner.partner [records]=partner.partner.stock_ownerships *ngFor="let partner of partners"></app-partner-overview>
+ </ng-container>
+ 
+ 
+  </div>
+</section>
