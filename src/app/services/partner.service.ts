@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class PartnerService {
 
   // Base url
-  baseurl = 'http://localhost:8000';
+  baseurl = `${environment.apiUrl}/api`;
 
   constructor(private http: HttpClient) { }
   // Http Headers
@@ -25,13 +26,13 @@ export class PartnerService {
   // GET
   getPartners(init = false): Observable<any> {
     if (init) {
-      return this.http.get<any>(this.baseurl + '/api/init/partners/')
+      return this.http.get<any>(this.baseurl + '/init/partners/')
         .pipe(
           retry(1),
           catchError(this.errorHandl)
         );
     } else {
-      return this.http.get<any>(this.baseurl + '/api/partners/')
+      return this.http.get<any>(this.baseurl + '/partners/')
         .pipe(
           retry(1),
           catchError(this.errorHandl)

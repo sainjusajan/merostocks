@@ -86,9 +86,9 @@ export class AuthService implements OnDestroy {
       .post<LoginResult>(`${this.apiUrl}/login/`, { username, password })
       .pipe(
         map((x) => {
-          this.updateUserState(x.access);
           this.setLocalStorage(x);
           this.startTokenTimer();
+          this.updateUserState(x.access);
           return x;
         })
       );

@@ -30,9 +30,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshData(true);
-    this.interval = setInterval(() => {
-      this.refreshData();
-    }, 10000);
+    // this.interval = setInterval(() => {
+    //   this.refreshData();
+    // }, 10000);
     this.accessToken = localStorage.getItem('access_token');
     this.refreshToken = localStorage.getItem('refresh_token');
   }

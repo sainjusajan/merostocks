@@ -13,10 +13,25 @@
       <td style="width: 275px;">Company</td>
       <td>52 weeks high</td>
       <td>52 weeks low</td>
-      <td>Previous Close</td>
+      <td>
+       <span class="lg-text"> Previous Close</span>
+        <span class="sm-text">PREV</span>
+      </td>
       <td style="width: 90px">LTP</td>
-      <td>Balance</td>
-      <td>Value as of Ltp</td>
+      <td>
+        <span class="lg-text">
+          Balance
+         </span> 
+         <span class="sm-text">BAL</span>
+  
+      </td>
+      <td class="ltp-thead">
+       <span class="lg-text">
+        Value as of Ltp
+       </span> 
+       <span class="sm-text">LTP</span>
+
+      </td>
 
       <td style="width: 130px; min-width: 135px;">Date</td>
     </tr>
@@ -25,17 +40,17 @@
     <tr class="{{getStatus(rec.records[0].previous_close, rec.records[0].stock_close)}}" *ngFor="let rec of partner.stock_ownerships">
       <td>{{rec.company.symbol}}</td>
       <td>{{rec.company.name}}</td>
-      <td>{{rec.records[0].fifty_two_weeks_high}}</td>
-      <td>{{rec.records[0].fifty_two_weeks_low}}</td>
-      <td>{{rec.records[0].previous_close}}</td>
-      <td>{{rec.records[0].stock_close}}</td>
+      <td>{{rec.records[0].fifty_two_weeks_high | number: '1.0-0'}}</td>
+      <td>{{rec.records[0].fifty_two_weeks_low | number: '1.0-0'}}</td>
+      <td>{{rec.records[0].previous_close | number: '1.0-0'}}</td>
+      <td>{{rec.records[0].stock_close | number: '1.0-0'}}</td>
       <td>{{rec.balance}}</td>
       <td style="position: relative;" id="value-as-of-ltp-container">
-        <div id="value-as-of-ltp">{{rec.ltp_value}} 
+        <div id="value-as-of-ltp">{{rec.ltp_value | number: '1.0-0'}} 
           <p class="diff-data">{{getDiffData(rec.records[0].previous_close, rec.records[0].stock_close, rec.balance)}}</p>
         </div>
       </td>
-      <td>{{rec.records[0].date | date}}</td>
+      <td>{{rec.records[0].date | date:'MMM d'}}</td>
     </tr>
   </tbody>
   <tfoot>
