@@ -27,3 +27,35 @@
 //     min-width: 115px;
 //   }
 // }
+
+table.mat-table {
+  width: 100%;
+}
+.my-table-wrapper {
+  // padding: 0 16px;
+}
+.partner-title {
+  margin: 50px 16px 25px;
+  color: #000000;
+}
+
+th.mat-header-cell,
+td.mat-footer-cell {
+  font-size: 15px;
+}
+@media (max-width: 540px) {
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    font-size: 13px;
+  }
+  th.mat-header-cell:last-of-type,
+  td.mat-cell:last-of-type,
+  td.mat-footer-cell:last-of-type {
+    padding-right: 2px;
+    min-width: 115px;
+  }
+  .my-table-wrapper{
+    padding: 0;
+  }
+}

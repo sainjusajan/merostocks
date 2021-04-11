@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { IApplicationUser } from '../models/application-user';
 import { AuthService } from '../services/auth.service';
@@ -9,7 +11,9 @@ import { PartnerService } from '../services/partner.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
+  loading = false;
   accessToken: any;
   refreshToken: any;
   usr$: Observable<IApplicationUser>;
@@ -30,15 +34,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshData(true);
-    // this.interval = setInterval(() => {
-    //   this.refreshData();
-    // }, 10000);
+    this.interval = setInterval(() => {
+      this.refreshData();
+    }, 10000);
     this.accessToken = localStorage.getItem('access_token');
     this.refreshToken = localStorage.getItem('refresh_token');
   }
 
   refreshData(init = false): void {
+    this.loading = true;
     this.partnerService.getPartners(init).subscribe(data => {
+      this.loading = false;
       this.total = 0;
       this.prevTotal = 0;
       for (const item of data) {
@@ -60,6 +66,7 @@ export class HomeComponent implements OnInit {
 
       }
       this.partners = data;
+      console.log(this.partners);
 
       this.updateTotalDiff();
 

@@ -1,63 +1,112 @@
-<div class="row">
-  <div class="col-md-4 ">
+<section>
+  <div class="container">
+
     <a style="text-decoration: none; color: white;">
-      <h2 style="margin: 50px 0 25px;">{{partner.name}}</h2>
+      <h2 class="partner-title">{{partner.name}}</h2>
     </a>
-  </div>
-</div>
-
-<table class="table table-responsive stocks-data-table">
-  <thead>
-    <tr>
-      <td>Symbol</td>
-      <td style="width: 275px;">Company</td>
-      <td>52 weeks high</td>
-      <td>52 weeks low</td>
-      <td>
-       <span class="lg-text"> Previous Close</span>
-        <span class="sm-text">PREV</span>
-      </td>
-      <td style="width: 90px">LTP</td>
-      <td>
-        <span class="lg-text">
-          Balance
-         </span> 
-         <span class="sm-text">BAL</span>
+      <div class="my-table-wrapper">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   
-      </td>
-      <td class="ltp-thead">
-       <span class="lg-text">
-        Value as of Ltp
-       </span> 
-       <span class="sm-text">LTP</span>
+          <!-- Position Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+            <td mat-cell *matCellDef="let element"> {{element.company.symbol}} </td>
+            <td mat-footer-cell *matFooterCellDef>TOTAL </td>
+  
+          </ng-container>
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+            <td mat-cell *matCellDef="let element"> {{element.company.name}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+  
+          </ng-container>
+  
+  
+          <!-- Weight Column -->
+          <ng-container matColumnDef="fifty_two_weeks_high">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 52 weeks high </th>
+            <td mat-cell *matCellDef="let element"> {{element.records[0].fifty_two_weeks_high | number: '1.0-0'}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+  
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="fifty_two_weeks_low">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> 52 weeks low </th>
+            <td mat-cell *matCellDef="let element"> {{element.records[0].fifty_two_weeks_high | number: '1.0-0'}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+  
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="previous_close">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{isSmall ? 'PREV': 'Previous Close' }}
+  
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.records[0].previous_close | number: '1.0-0'}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+  
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="stock_close">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> LTP </th>
+            <td mat-cell *matCellDef="let element"> {{element.records[0].stock_close | number: '1.0-0' | nocomma}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+  
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="balance">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{isSmall ? 'BAL': 'Balance' }}
+  
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+  
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="ltp_value">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{isSmall ? 'VALUE': 'Value As of LTP' }}
+  
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <!-- {{element.ltp_value}} -->
+              <div id="value-as-of-ltp" style="position: relative;">
+                {{element.ltp_value | number: '1.0-0'}}
+                <p class="diff-data">{{getDiffData(element.records[0].previous_close, element.records[0].stock_close,
+                  element.balance)}}
+                </p>
+              </div>
+            </td>
+            <td mat-footer-cell *matFooterCellDef> {{total | number: '1.0-0'}} </td>
+  
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.records[0].date | date:'MMM d'}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+  
+  
+          </ng-container>
+  
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr class="{{getStatus(row.records[0].previous_close, row.records[0].stock_close)}}" mat-row
+            *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  
+        </table>
+      </div>
 
-      </td>
 
-      <td style="width: 130px; min-width: 135px;">Date</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="{{getStatus(rec.records[0].previous_close, rec.records[0].stock_close)}}" *ngFor="let rec of partner.stock_ownerships">
-      <td>{{rec.company.symbol}}</td>
-      <td>{{rec.company.name}}</td>
-      <td>{{rec.records[0].fifty_two_weeks_high | number: '1.0-0'}}</td>
-      <td>{{rec.records[0].fifty_two_weeks_low | number: '1.0-0'}}</td>
-      <td>{{rec.records[0].previous_close | number: '1.0-0'}}</td>
-      <td>{{rec.records[0].stock_close | number: '1.0-0'}}</td>
-      <td>{{rec.balance}}</td>
-      <td style="position: relative;" id="value-as-of-ltp-container">
-        <div id="value-as-of-ltp">{{rec.ltp_value | number: '1.0-0'}} 
-          <p class="diff-data">{{getDiffData(rec.records[0].previous_close, rec.records[0].stock_close, rec.balance)}}</p>
-        </div>
-      </td>
-      <td>{{rec.records[0].date | date:'MMM d'}}</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr style="background:#e3f7e3;">
-      <td colspan="7"><b>TOTAL</b></td>
-      <td class="partner-total" style="font-weight: bold;font-size: 20px;">{{formatter.format(total)}}</td>
-      <td></td>
-    </tr>
-  </tfoot>
-</table>
+  </div>
+</section>

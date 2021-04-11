@@ -7,13 +7,22 @@ import { JwtInterceptor } from '../interceptors/jwt.interceptor';
 import { UnauthorizedInterceptor } from '../interceptors/unauthorized.interceptor';
 import { appInitializer } from '../services/app-initializer';
 import { AuthService } from '../services/auth.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { NocommaPipe } from './pipes/nocomma.pipe';
+import {MatCardModule} from '@angular/material/card';
 
 
 
 @NgModule({
-  declarations: [PartnerOverviewComponent, StockRecordComponent],
+  declarations: [PartnerOverviewComponent, StockRecordComponent, NocommaPipe],
   imports: [
-    CommonModule
+    CommonModule,
+    MatTableModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   exports: [
     PartnerOverviewComponent

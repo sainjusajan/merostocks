@@ -105,33 +105,34 @@
 // .bg-white tbody {
 //   background: #ffffff;
 // }
-// .diff-data {
-//   position: absolute;
-//   right: 10px;
-//   top: 4px;
-//   background: yellow;
-//   padding: 0px 5px;
-// }
+.diff-data {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  color: #000000;
+  background: yellow;
+  padding: 0px 5px;
+}
 // /* #1de61d !important */
 
 // .normal td {
 //   background: #ffffff;
 // }
-// .profit td {
-//   background: #1de61d;
-// }
-// .loss td {
-//   background: #ff6767;
-// }
-// #total-diff {
-//   position: absolute;
-//   bottom: -40px;
-//   right: 0;
-//   font-size: 18px;
-//   background: yellow;
-//   color: black;
-//   padding: 5px 12px;
-// }
+.profit td {
+  background: #2e7d32;
+}
+.loss td {
+  background: #c62828;
+}
+#total-diff {
+  position: absolute;
+  bottom: -40px;
+  right: 0;
+  font-size: 18px;
+  background: yellow;
+  color: black;
+  padding: 5px 12px;
+}
 
 
 // @media (max-width: 768px) {
@@ -140,6 +141,17 @@
 //   }
 // }
 
-
+button:focus{
+  outline: none;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-drawer-container{
+  background-color: #ffffff;
+}
+.mat-drawer-content{
+  padding-bottom: 60px;
+}
+.menu-toggler-btn{
+  text-align: left !important;
+}
