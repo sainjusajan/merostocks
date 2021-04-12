@@ -81,6 +81,10 @@ export class AuthService implements OnDestroy {
     window.removeEventListener('storage', this.storageEventListener.bind(this));
   }
 
+  isLoggedIn(): boolean {
+    return localStorage.getItem('access_token') !== null;
+  }
+
   login(username: string, password: string) {
     return this.http
       .post<LoginResult>(`${this.apiUrl}/login/`, { username, password })
@@ -95,17 +99,17 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
-    this.http
-      .post<unknown>(`${this.apiUrl}/logout`, {})
-      .pipe(
-        finalize(() => {
-          this.clearLocalStorage();
-          this._user.next(INIT_APPLICATION_USER);
-          this.stopTokenTimer();
-          this.router.navigate(['login']);
-        })
-      )
-      .subscribe();
+    this.clearLocalStorage();
+    this._user.next(INIT_APPLICATION_USER);
+    this.stopTokenTimer();
+    this.router.navigate(['login']);
+    // this.http
+    //   .post<unknown>(`${this.apiUrl}/logout`, {})
+    //   .pipe(
+    //     finalize(() => {
+    //     })
+    //   )
+    //   .subscribe();
   }
 
   refreshToken() {
@@ -145,12 +149,8 @@ export class AuthService implements OnDestroy {
     if (!accessToken) {
       return 0;
     }
-
-
     const jwtToken = JSON.parse(atob(accessToken.split('.')[1]));
-
     const expires = new Date(jwtToken.exp * 1000);
-
     return expires.getTime() - Date.now();
   }
 

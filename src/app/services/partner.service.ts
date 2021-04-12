@@ -24,15 +24,15 @@ export class PartnerService {
 
 
   // GET
-  getPartners(init = false): Observable<any> {
+  getPartners(init = false, userId: number | null): Observable<any> {
     if (init) {
-      return this.http.get<any>(this.baseurl + '/init/partners/')
+      return this.http.get<any>(`${this.baseurl}/init/partners/${userId}/`)
         .pipe(
           retry(1),
           catchError(this.errorHandl)
         );
     } else {
-      return this.http.get<any>(this.baseurl + '/partners/')
+      return this.http.get<any>(`${this.baseurl}/partners/${userId}/`)
         .pipe(
           retry(1),
           catchError(this.errorHandl)

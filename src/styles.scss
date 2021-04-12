@@ -1,110 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-// body {
-//   background: url("/assets/images/main-bg.jpg");
-//   position: relative;
-//   color: white;
-//   background-position: center center;
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   min-height: 100vh;
-//   background-attachment: fixed;
-// }
-
-// .body-overlay {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   height: 100%;
-//   width: 100%;
-//   background: rgb(0 0 0 / 84%);
-//   z-index: -1;
-// }
-
-// .main-content {
-//   padding: 50px 0;
-// }
-
-// thead {
-//   background: bisque;
-// }
-
-// .overview {
-//   display: flex;
-//   justify-content: space-between;
-// }
-
-// @media (max-width: 992px) {
-//   .overview {
-//     flex-flow: column;
-//   }
-//   .overview .btn {
-//     margin: 15px 0;
-//   }
-// }
-// .stocks-data-table {
-//   background: #ffffff;
-//   position: relative;
-//   border: 1px solid gainsboro;
-//   border-collapse: separate;
-//   border-spacing: 0;
-//   border-top: 1px solid grey;
-// }
-// .table td,
-// .table th {
-//   padding: 5px;
-//   vertical-align: top;
-//   border-top: 1px solid #dee2e6;
-//   margin: 0;
-//   /* border: 1px solid grey; */
-//   /* white-space: nowrap; */
-//   /* border-top-width: 0px; */
-//   border-right: 1px solid #dee2e6;
-//   box-sizing: border-box;
-// }
-
-// .table tr td:first-child {
-//   position: sticky;
-//   left: 0px;
-//   /* background: white; */
-//   border-right: 1px solid #dee2e6;
-//   box-sizing: border-box;
-//   min-width: 90px;
-//   max-width: 90px;
-// }
-// .table tr td:nth-child(2) {
-//   position: sticky;
-//   left: 90px;
-//   /* background: white; */
-//   border-right: 1px solid #dee2e6;
-//   box-sizing: border-box;
-//   min-width: 150px;
-// }
-
-// .table thead tr td:first-child {
-//   background: bisque;
-// }
-// .table thead tr td:nth-child(2) {
-//   background: bisque;
-// }
-
-// .table tfoot tr td:first-child {
-//   background: #e3f7e3;
-// }
-// .table tfoot tr td:nth-child(2) {
-//   background: #e3f7e3;
-// }
-// .page-title {
-//   padding: 60px 0 30px;
-// }
-// .partners-btn {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
-
-// .bg-white tbody {
-//   background: #ffffff;
-// }
 .diff-data {
   position: absolute;
   right: 10px;
@@ -113,11 +6,7 @@
   background: yellow;
   padding: 0px 5px;
 }
-// /* #1de61d !important */
 
-// .normal td {
-//   background: #ffffff;
-// }
 .profit td {
   background: #2e7d32;
 }
@@ -134,24 +23,41 @@
   padding: 5px 12px;
 }
 
-
-// @media (max-width: 768px) {
-//   body{
-//     font-size: 0.8rem;
-//   }
-// }
-
+.pt25 {
+  padding-top: 25px;
+}
 button:focus{
   outline: none;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.mat-drawer-container{
-  background-color: #ffffff;
+// .mat-drawer-container{
+//   background-color: #ffffff;
+// }
+
+mat-toolbar.mat-primary {
+  background: #424242 !important;
+  color: #fff !important;
 }
 .mat-drawer-content{
   padding-bottom: 60px;
 }
-.menu-toggler-btn{
-  text-align: left !important;
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  // color: #4caf50 !important;
+  color: #D7CCC8 !important;
+}
+.mat-form-field.mat-focused .mat-form-field-ripple{
+  // background-color: #4caf50 !important;
+  background-color: #D7CCC8 !important;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+  box-shadow: 0 0 0 30px #3c3b3b inset !important;
+  -webkit-text-fill-color: #ffffff !important;
 }

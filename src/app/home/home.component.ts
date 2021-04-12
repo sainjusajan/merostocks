@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { IApplicationUser } from '../models/application-user';
 import { AuthService } from '../services/auth.service';
 import { PartnerService } from '../services/partner.service';
@@ -12,7 +14,7 @@ import { PartnerService } from '../services/partner.service';
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   loading = false;
   accessToken: any;
   refreshToken: any;
@@ -25,25 +27,49 @@ export class HomeComponent implements OnInit {
     style: 'currency',
     currency: 'NPR',
   });
-  interval: any;
+  interval = this.getRefreshTimer();
   constructor(
     private readonly partnerService: PartnerService,
     private readonly authService: AuthService) {
     this.usr$ = authService.user$;
   }
+  ngOnDestroy(): void {
+    console.log('ng on destroy: Homecomponent');
+
+    clearInterval(this.interval);
+  }
 
   ngOnInit(): void {
     this.refreshData(true);
-    this.interval = setInterval(() => {
-      this.refreshData();
-    }, 10000);
     this.accessToken = localStorage.getItem('access_token');
     this.refreshToken = localStorage.getItem('refresh_token');
   }
 
+  handleReloadToggler(ev: MatSlideToggleChange) {
+    console.log(ev.checked);
+    if (!ev.checked) {
+      console.log('clearing interval');
+
+      clearInterval(this.interval);
+    } else {
+      this.interval = this.getRefreshTimer();
+    }
+  }
+  getRefreshTimer() {
+    return setInterval(() => {
+      this.refreshData();
+    }, 10000);
+  }
+
   refreshData(init = false): void {
     this.loading = true;
-    this.partnerService.getPartners(init).subscribe(data => {
+
+    this.authService.user$.pipe(
+      switchMap((x: IApplicationUser) => {
+        return this.partnerService.getPartners(init, x.id);
+      })
+    )
+    .subscribe(data => {
       this.loading = false;
       this.total = 0;
       this.prevTotal = 0;

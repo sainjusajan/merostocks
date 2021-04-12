@@ -7,6 +7,7 @@ import { PartnerService } from '../services/partner.service';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const routes: Routes = [
   {path: '', component: HomeComponent}
@@ -18,6 +19,7 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     MatCardModule,
+    MatSlideToggleModule,
     MatProgressSpinnerModule,
     RouterModule.forChild(routes)
   ],

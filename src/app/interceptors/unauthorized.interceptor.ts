@@ -4,6 +4,7 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -13,27 +14,34 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      catchError((err) => {
-        if (err.status === 401) {
-          this.authService.clearLocalStorage();
-          this.router.navigate(['login'], {
-            queryParams: { returnUrl: '' },
-          });
-        }
 
-        if (!environment.production) {
-          console.error(err);
-        }
-        const error = (err && err.error && err.error.message) || err.statusText;
-        return throwError(error);
-      })
-    );
+    if (!window.navigator.onLine) {
+      console.log('no internet');
+      return Observable.throw(new HttpErrorResponse({ error: 'Internet is required.' }));
+    } else {
+      // else return the normal request
+      return next.handle(request).pipe(
+        catchError((err) => {
+          if (err.status === 401) {
+            this.authService.clearLocalStorage();
+            this.router.navigate(['login'], {
+              queryParams: { returnUrl: '' },
+            });
+          }
+
+          if (!environment.production) {
+            console.error(err);
+          }
+          const error = (err && err.error && err.error.message) || err.statusText;
+          return throwError(error);
+        })
+      );
+    }
   }
 }

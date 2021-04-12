@@ -62,8 +62,6 @@ export class PartnerOverviewComponent implements OnInit, AfterViewInit {
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => {
-        console.log(result);
-        
         return result.matches;
       }),
       shareReplay()
@@ -71,8 +69,6 @@ export class PartnerOverviewComponent implements OnInit, AfterViewInit {
   isTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Tablet)
     .pipe(
       map(result => {
-        console.log(result);
-        
         return result.matches;
       }),
       shareReplay()
@@ -93,7 +89,6 @@ export class PartnerOverviewComponent implements OnInit, AfterViewInit {
       this.total += ownership['ltp_value'];
     }
     this.dataSource = new MatTableDataSource(this.records);
-    console.log(this.records);
     this.isHandset$.subscribe(x => {
       if (x) {
         this.isSmall = true;
