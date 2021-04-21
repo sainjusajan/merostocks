@@ -16,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {MatInputModule} from '@angular/material/input';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {MatInputModule} from '@angular/material/input';
     MatIconModule,
     MatListModule,
     MatInputModule,
+    IonicModule.forRoot(),
   ],
   bootstrap: [AppComponent]
 })

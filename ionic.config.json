@@ -1,0 +1,12 @@
+{
+  "defaultProject": "stocks-angular",
+  "projects": {
+    "stocks-angular": {
+      "name": "stocks-angular",
+      "integrations": {
+        "capacitor": {}
+      },
+      "type": "angular"
+    }
+  }
+}
