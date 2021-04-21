@@ -35,7 +35,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     console.log('ng on destroy: Homecomponent');
-
     clearInterval(this.interval);
   }
 
