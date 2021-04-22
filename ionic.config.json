@@ -4,7 +4,10 @@
     "stocks-angular": {
       "name": "stocks-angular",
       "integrations": {
-        "capacitor": {}
+        "capacitor": {
+          "enabled": false
+        },
+        "cordova": {}
       },
       "type": "angular"
     }

@@ -24,9 +24,9 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.userId$.pipe(
+    return this.authService.user$.pipe(
       map((user) => {
-        if (user) {
+        if (user && user.id) {
           return true;
         } else {
           this.router.navigate(['login'], {
