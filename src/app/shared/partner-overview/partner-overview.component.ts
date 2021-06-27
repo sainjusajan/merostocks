@@ -85,7 +85,7 @@ export class PartnerOverviewComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     for (const ownership of this.records) {
-      ownership['ltp_value'] = parseFloat(ownership.records[0].stock_close) * ownership.balance;
+      ownership['ltp_value'] = parseFloat(ownership.stock_close) * ownership.balance;
       this.total += ownership['ltp_value'];
     }
     this.dataSource = new MatTableDataSource(this.records);

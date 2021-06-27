@@ -1,28 +1,28 @@
 
 <section class="pt25">
-  
+
   <div class="container">
     <div class="text-right">
-      
+
       <mat-slide-toggle checked="true" color="primary" (change)="handleReloadToggler($event)">Live Data</mat-slide-toggle>
     </div>
-  
+
     <mat-card class="overview-card">
       <h1>
         Total Value: <br>
         <span id="total-value" style="color: #1a9c1a;">{{formatter.format(total)}}</span>
       </h1>
-     
+
       <h3>{{diff}}</h3>
       <mat-spinner *ngIf="loading" class="loading-spinner" [diameter]="30"></mat-spinner>
-  
+
     </mat-card>
-  
+
   </div>
 </section>
 
 <ng-container *ngIf="partners">
-  <app-partner-overview [partner]=partner.partner [records]=partner.partner.stock_ownerships
+  <app-partner-overview [partner]=partner [records]=partner.records
     *ngFor="let partner of partners"></app-partner-overview>
 </ng-container>
 

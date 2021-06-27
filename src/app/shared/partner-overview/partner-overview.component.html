@@ -6,104 +6,104 @@
     </a>
       <div class="my-table-wrapper">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  
+
           <!-- Position Column -->
           <ng-container matColumnDef="symbol">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-            <td mat-cell *matCellDef="let element"> {{element.company.symbol}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.company_symbol}} </td>
             <td mat-footer-cell *matFooterCellDef>TOTAL </td>
-  
+
           </ng-container>
-  
+
           <!-- Name Column -->
           <ng-container matColumnDef="company">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
-            <td mat-cell *matCellDef="let element"> {{element.company.name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.company_title}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
-  
+
           </ng-container>
-  
-  
+
+
           <!-- Weight Column -->
           <ng-container matColumnDef="fifty_two_weeks_high">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 52 weeks high </th>
-            <td mat-cell *matCellDef="let element"> {{element.records[0].fifty_two_weeks_high | number: '1.0-0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fifty_two_weeks_high | number: '1.0-0'}} </td>
             <td mat-footer-cell *matFooterCellDef> </td>
-  
+
           </ng-container>
-  
+
           <!-- Symbol Column -->
           <ng-container matColumnDef="fifty_two_weeks_low">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 52 weeks low </th>
-            <td mat-cell *matCellDef="let element"> {{element.records[0].fifty_two_weeks_high | number: '1.0-0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fifty_two_weeks_high | number: '1.0-0'}} </td>
             <td mat-footer-cell *matFooterCellDef> </td>
-  
+
           </ng-container>
-  
+
           <!-- Symbol Column -->
           <ng-container matColumnDef="previous_close">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               {{isSmall ? 'PREV': 'Previous Close' }}
-  
+
             </th>
-            <td mat-cell *matCellDef="let element"> {{element.records[0].previous_close | number: '1.0-0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.previous_close | number: '1.0-0'}} </td>
             <td mat-footer-cell *matFooterCellDef> </td>
-  
+
           </ng-container>
-  
+
           <!-- Symbol Column -->
           <ng-container matColumnDef="stock_close">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> LTP </th>
-            <td mat-cell *matCellDef="let element"> {{element.records[0].stock_close | number: '1.0-0' | nocomma}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.stock_close | number: '1.0-0' | nocomma}} </td>
             <td mat-footer-cell *matFooterCellDef> </td>
-  
+
           </ng-container>
-  
+
           <!-- Symbol Column -->
           <ng-container matColumnDef="balance">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               {{isSmall ? 'BAL': 'Balance' }}
-  
+
             </th>
             <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
             <td mat-footer-cell *matFooterCellDef> </td>
-  
+
           </ng-container>
-  
+
           <!-- Symbol Column -->
           <ng-container matColumnDef="ltp_value">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               {{isSmall ? 'VALUE': 'Value As of LTP' }}
-  
+
             </th>
             <td mat-cell *matCellDef="let element">
               <!-- {{element.ltp_value}} -->
               <div id="value-as-of-ltp" style="position: relative;">
                 {{element.ltp_value | number: '1.0-0'}}
-                <p class="diff-data">{{getDiffData(element.records[0].previous_close, element.records[0].stock_close,
+                <p class="diff-data">{{getDiffData(element.previous_close, element.stock_close,
                   element.balance)}}
                 </p>
               </div>
             </td>
             <td mat-footer-cell *matFooterCellDef> {{total | number: '1.0-0'}} </td>
-  
+
           </ng-container>
-  
+
           <!-- Symbol Column -->
           <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.records[0].date | date:'MMM d'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.date | date:'MMM d'}} </td>
             <td mat-footer-cell *matFooterCellDef> </td>
-  
-  
+
+
           </ng-container>
-  
-  
+
+
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr class="{{getStatus(row.records[0].previous_close, row.records[0].stock_close)}}" mat-row
+          <tr class="{{getStatus(row.previous_close, row.stock_close)}}" mat-row
             *matRowDef="let row; columns: displayedColumns;"></tr>
           <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-  
+
         </table>
       </div>
 

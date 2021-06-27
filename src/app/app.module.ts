@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -17,17 +17,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {MatInputModule} from '@angular/material/input';
 import { IonicModule } from '@ionic/angular';
+import { RegisterComponent } from './register/register.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavigationComponent,
+    RegisterComponent,
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -39,6 +43,7 @@ import { IonicModule } from '@ionic/angular';
     MatListModule,
     MatInputModule,
     IonicModule.forRoot(),
+    MatProgressSpinnerModule,
   ],
   bootstrap: [AppComponent]
 })

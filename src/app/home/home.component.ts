@@ -65,35 +65,43 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.authService.user$.pipe(
       switchMap((x: IApplicationUser) => {
-        return this.partnerService.getPartners(init, x.id);
+        return this.partnerService.getPartners();
       })
     )
-    .subscribe(data => {
+    .subscribe(partners => {
       this.loading = false;
       this.total = 0;
       this.prevTotal = 0;
-      for (const item of data) {
-        for (const ownership of item.partner.stock_ownerships) {
-          const recs = [];
-          for (const rec of item.records) {
-            if (ownership.company.symbol === rec.company_symbol) {
-              recs.push(rec);
-            }
-          }
-          ownership['records'] = recs;
-        }
+      // for (const item of data) {
+      //   for (const ownership of item.partner.stock_ownerships) {
+      //     const recs = [];
+      //     for (const rec of item.records) {
+      //       if (ownership.company.symbol === rec.company_symbol) {
+      //         recs.push(rec);
+      //       }
+      //     }
+      //     ownership['records'] = recs;
+      //   }
+      //
+      //   for (const ownership of item.partner.stock_ownerships) {
+      //     this.total += parseFloat(ownership.records[0].stock_close) * ownership.balance;
+      //     this.prevTotal += parseFloat(ownership.records[0].previous_close) * ownership.balance;
+      //   }
+      //
+      //
+      // }
 
-        for (const ownership of item.partner.stock_ownerships) {
-          this.total += parseFloat(ownership.records[0].stock_close) * ownership.balance;
-          this.prevTotal += parseFloat(ownership.records[0].previous_close) * ownership.balance;
-        }
-
-
+      for (const partner of partners) {
+        partner['records'] = partner.ownerships.reduce((a:any, c:any) => {
+          return a.concat({...c.record, balance: c.balance})
+        }, [])
       }
-      this.partners = data;
+
+      console.log('partners', partners)
+      this.partners = partners
       console.log(this.partners);
 
-      this.updateTotalDiff();
+      // this.updateTotalDiff();
 
     });
   }

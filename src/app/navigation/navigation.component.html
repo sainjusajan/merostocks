@@ -2,13 +2,13 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
     <mat-toolbar>MeroStocks</mat-toolbar>
-    <mat-nav-list *ngIf="(user$ | async)?.id">
+    <mat-nav-list *ngIf="(user$ | async)?.email">
       <a mat-list-item (click)="logoutHandler();drawer.toggle()">Logout</a>
 
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar *ngIf="(user$ | async)?.id" color="primary">
+    <mat-toolbar *ngIf="(user$ | async)?.email" color="primary">
       <button type="button" class="menu-toggler-btn" aria-label="Toggle sidenav" mat-icon-button
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
@@ -18,7 +18,7 @@
       <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon>account_circle</mat-icon>
       </button>
-      <span> {{(user$ | async)?.username}}</span>
+      <span>Hi, {{(user$ | async)?.first_name}}</span>
     </mat-toolbar>
     <!-- Add Content Here -->
 

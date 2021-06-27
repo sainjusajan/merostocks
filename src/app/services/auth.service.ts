@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { map, tap, delay, finalize, switchMap } from 'rxjs/operators';
 import { IUserId, IApplicationUser, INIT_APPLICATION_USER } from '../models/application-user';
 import { environment } from 'src/environments/environment';
+import {Endpoints} from '../config';
 
 interface LoginResult {
   access: string;
@@ -36,7 +37,8 @@ interface RefreshResult {
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
-  public readonly apiUrl = `${environment.apiUrl}/api`;
+  endpoints = Endpoints;
+  public readonly apiUrl = `${environment.apiUrl}`;
   public timer: Subscription = new Subscription();
   // tslint:disable-next-line: variable-name
   public _user = new BehaviorSubject<IApplicationUser>(INIT_APPLICATION_USER);
@@ -58,18 +60,8 @@ export class AuthService implements OnDestroy {
     }
   }
   updateUserState(token: string) {
-    const userId = this.getUserIdFromToken(token);
-    this.http.get<UserDetailResult>(`${this.apiUrl}/users/${userId}/`).subscribe(x => {
-      const usr: IApplicationUser = {
-        id: x.id,
-        is_superuser: x.is_superuser,
-        username: x.username,
-        first_name: x.first_name,
-        last_name: x.last_name,
-        email: x.email,
-        is_staff: x.is_staff,
-        is_active: x.is_active,
-      };
+    this.http.get<IApplicationUser>(`${this.apiUrl}/api/current`).subscribe(x => {
+      const usr: IApplicationUser = x;
       this._user.next(usr);
     }, (err) => console.log(err));
   }
@@ -85,9 +77,9 @@ export class AuthService implements OnDestroy {
     return localStorage.getItem('access_token') !== null;
   }
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     return this.http
-      .post<LoginResult>(`${this.apiUrl}/login/`, { username, password })
+      .post<LoginResult>(`${this.apiUrl}/${this.endpoints.login}`, { email, password })
       .pipe(
         map((x) => {
           this.setLocalStorage(x);
@@ -97,6 +89,19 @@ export class AuthService implements OnDestroy {
         })
       );
   }
+
+  register(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${this.endpoints.register}`, data)
+      .pipe(
+        tap(res => {
+          console.log('register', res);
+        }),
+        switchMap(res => {
+          return this.login(res.user.email, data.password)
+        })
+      )
+  }
+
 
   logout() {
     this.clearLocalStorage();
@@ -119,7 +124,7 @@ export class AuthService implements OnDestroy {
       return of(null);
     }
     return this.http
-      .post<RefreshResult>(`${this.apiUrl}/token/refresh/`, { refresh: refreshToken })
+      .post<RefreshResult>(`${this.apiUrl}/api/token/refresh/`, { refresh: refreshToken })
       .pipe(
         map((x) => {
           this.updateUserState(x.access);

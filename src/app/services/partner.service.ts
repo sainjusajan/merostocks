@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable, throwError} from 'rxjs';
+import {retry, catchError} from 'rxjs/operators';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,9 @@ export class PartnerService {
   // Base url
   baseurl = `${environment.apiUrl}/api`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
@@ -24,23 +26,13 @@ export class PartnerService {
 
 
   // GET
-  getPartners(init = false, userId: number | null): Observable<any> {
-    if (init) {
-      return this.http.get<any>(`${this.baseurl}/init/partners/${userId}/`)
-        .pipe(
-          retry(1),
-          catchError(this.errorHandl)
-        );
-    } else {
-      return this.http.get<any>(`${this.baseurl}/partners/${userId}/`)
-        .pipe(
-          retry(1),
-          catchError(this.errorHandl)
-        );
-
-    }
+  getPartners(): Observable<any> {
+    return this.http.get<any>(`${this.baseurl}/customer/partners`)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      );
   }
-
 
 
   // Error handling

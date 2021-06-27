@@ -1,0 +1,70 @@
+<div class="text-center mb-4">
+
+  <h1 class="h3 mb-3">
+    <img class="logo" src="/assets/images/merostocks-logo.png" alt="">
+  </h1>
+</div>
+
+<form class="form-signin" [formGroup]="registerForm" (ngSubmit)="register()">
+  <div class="form-label-group">
+    <mat-form-field class="example-full-width">
+      <mat-label>First Name</mat-label>
+
+      <input type="text" formControlName="first_name" name="username" matInput required>
+    </mat-form-field>
+    <mat-error *ngIf="submitted && f.first_name.errors">
+      <span *ngIf="f.first_name.errors.required">First name is required</span>
+    </mat-error>
+  </div>
+  <div class="form-label-group">
+    <mat-form-field class="example-full-width">
+      <mat-label>Last Name</mat-label>
+
+      <input type="text" formControlName="last_name" name="username" matInput required>
+    </mat-form-field>
+    <mat-error *ngIf="submitted && f.last_name.errors">
+      <span *ngIf="f.last_name.errors.required">Last name is required</span>
+    </mat-error>
+  </div>
+  <div class="form-label-group">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+
+      <input type="email" formControlName="email" name="username" matInput required>
+    </mat-form-field>
+    <mat-error *ngIf="submitted && f.email.errors">
+      <span *ngIf="f.email.errors.required">Email is required</span>
+      <span *ngIf="f.email.errors.email">Use valid email address</span>
+    </mat-error>
+  </div>
+
+  <div class="form-label-group">
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+
+      <input type="password"  formControlName="password" name="password" matInput required>
+    </mat-form-field>
+    <mat-error *ngIf="submitted && f.password.errors">
+      <span *ngIf="f.password.errors.required">Password is required</span>
+      <span *ngIf="f.password.errors.minlength">Password should be at minimum 8 character</span>
+    </mat-error>
+  </div>
+
+  <div class="checkbox mb-3 text-danger" *ngIf="loginError">
+    Login failed. Please try again.
+  </div>
+  <button type="submit" class="btn btn-lg btn-primary btn-block submit-btn" [disabled]="busy">
+    <span *ngIf="!busy">Sign up</span>
+    <mat-spinner *ngIf="busy" [diameter]="35"></mat-spinner>
+  </button>
+
+  <div class="small text-secondary mt-3 d-none d-sm-flex">
+<!--    <strong>Example logins:</strong>-->
+<!--    <ul>-->
+<!--      <li>admin: securePassword</li>-->
+<!--      <li>test1: password1</li>-->
+<!--      <li>test2: password2</li>-->
+<!--    </ul>-->
+  </div>
+</form>
