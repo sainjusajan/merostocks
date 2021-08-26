@@ -62,3 +62,21 @@ td.mat-footer-cell {
     padding: 0;
   }
 }
+
+.cockpit{
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 50px 0 10px;
+  .partner-title{
+    margin: 0;
+  }
+  .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 135px;
+    margin-left: 20px;
+  }
+}

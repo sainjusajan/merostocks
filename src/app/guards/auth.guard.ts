@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -6,9 +6,9 @@ import {
   UrlTree,
   Router,
 } from '@angular/router';
-import {Observable} from 'rxjs';
-import {AuthService} from '../services/auth.service';
-import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+import { map } from 'rxjs/operators';
 
 type NewType = Observable<boolean | UrlTree>;
 
@@ -29,10 +29,10 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     const userLoggedIn = this.authService.isLoggedIn();
     if (userLoggedIn) {
-      return true
+      return true;
     } else {
       return this.router.navigate(['login'], {
-        queryParams: {returnUrl: state.url},
+        queryParams: { returnUrl: state.url },
       });
     }
   }

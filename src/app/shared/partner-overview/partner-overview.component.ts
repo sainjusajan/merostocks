@@ -5,6 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import {MatDialog} from '@angular/material/dialog';
+import {AddStockDialogComponent} from '../add-stock-dialog/add-stock-dialog.component';
+import {Router} from '@angular/router';
 export interface IRecord {
   company_symbol: string;
   company_title: string;
@@ -81,7 +84,11 @@ export class PartnerOverviewComponent implements OnInit, AfterViewInit {
     currency: 'NPR',
   });
   total = 0;
-  constructor(private breakpointObserver: BreakpointObserver) { }
+
+
+  constructor(private breakpointObserver: BreakpointObserver,
+              public dialog: MatDialog,
+              private readonly router: Router) { }
 
   ngOnInit(): void {
     for (const ownership of this.records) {
@@ -109,6 +116,17 @@ export class PartnerOverviewComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  openPartnerStockAddDialog(name:string, id:number): void {
+    const dialogRef = this.dialog.open(AddStockDialogComponent, {
+      width: '400px',
+      data: {partnerName: name, partnerId: id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
+  }
+
   getStatus(prev: string, latest: string): string {
     if ((parseFloat(prev)) > parseFloat(latest)) {
       return 'loss';
@@ -123,13 +141,17 @@ export class PartnerOverviewComponent implements OnInit, AfterViewInit {
     const pv = parseFloat(prev);
     const lt = parseFloat(lat);
     if (pv > lt) {
-      return `- ${(pv - lt) * balance}`;
+      return `- ${Math.floor((pv - lt) * balance)}`;
     } else if (pv < lt) {
 
-      return `+ ${(lt - pv) * balance}`;
+      return `+ ${Math.floor((lt - pv) * balance)}`;
     } else {
       return '';
     }
+  }
+
+  gotoPartner(id: number) {
+    // this.router.navigateByUrl(`/partner/${id}`)
   }
 
 

@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Add Stock for {{data.partnerName}}</h1>
+<form [formGroup]="addStockForm" (ngSubmit)="addStockHandler()">
+  <div mat-dialog-content>
+    <div class="form-label-group">
+      <mat-form-field class="example-full-width">
+        <input type="text" formControlName="company" name="company" matInput placeholder="company">
+      </mat-form-field>
+      <mat-error *ngIf="submitted && f.company.errors">
+        <span *ngIf="f.company.errors.required">Company is required</span>
+      </mat-error>
+    </div>
+    <div class="form-label-group">
+      <mat-form-field class="example-full-width">
+        <input type="text" formControlName="balance" name="balance" matInput placeholder="balance">
+      </mat-form-field>
+      <mat-error *ngIf="submitted && f.balance.errors">
+        <span *ngIf="f.balance.errors.required">Balance is required</span>
+      </mat-error>
+    </div>
+       <div class="form-label-group invisible">
+      <mat-form-field class="example-full-width">
+        <input type="text" formControlName="partner" name="partner" matInput placeholder="balance">
+      </mat-form-field>
+      <mat-error *ngIf="submitted && f.partner.errors">
+        <span *ngIf="f.partner.errors.required">Partner is required</span>
+      </mat-error>
+    </div>
+
+
+  </div>
+  <div>
+    <button class="btn btn-danger" (click)="onNoClick()">No Thanks</button>
+    <button class="btn btn-secondary" type="submit" mat-button cdkFocusInitial>Add</button>
+  </div>
+</form>

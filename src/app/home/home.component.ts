@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.usr$ = authService.user$;
   }
   ngOnDestroy(): void {
-    console.log('ng on destroy: Homecomponent');
     clearInterval(this.interval);
   }
 
@@ -45,10 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   handleReloadToggler(ev: MatSlideToggleChange) {
-    console.log(ev.checked);
     if (!ev.checked) {
-      console.log('clearing interval');
-
       clearInterval(this.interval);
     } else {
       this.interval = this.getRefreshTimer();
@@ -56,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   getRefreshTimer() {
     return setInterval(() => {
-      this.refreshData();
+      this.refreshData(false);
     }, 10000);
   }
 
@@ -65,47 +61,34 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.authService.user$.pipe(
       switchMap((x: IApplicationUser) => {
-        return this.partnerService.getPartners();
+        return this.partnerService.getPartners(init);
       })
     )
-    .subscribe(partners => {
-      this.loading = false;
-      this.total = 0;
-      this.prevTotal = 0;
-      // for (const item of data) {
-      //   for (const ownership of item.partner.stock_ownerships) {
-      //     const recs = [];
-      //     for (const rec of item.records) {
-      //       if (ownership.company.symbol === rec.company_symbol) {
-      //         recs.push(rec);
-      //       }
-      //     }
-      //     ownership['records'] = recs;
-      //   }
-      //
-      //   for (const ownership of item.partner.stock_ownerships) {
-      //     this.total += parseFloat(ownership.records[0].stock_close) * ownership.balance;
-      //     this.prevTotal += parseFloat(ownership.records[0].previous_close) * ownership.balance;
-      //   }
-      //
-      //
-      // }
+      .subscribe(partners => {
+        this.loading = false;
+        this.total = 0;
+        this.prevTotal = 0;
+        this.initPartners(partners);
 
-      for (const partner of partners) {
-        partner['records'] = partner.ownerships.reduce((a:any, c:any) => {
-          return a.concat({...c.record, balance: c.balance})
-        }, [])
-      }
-
-      console.log('partners', partners)
-      this.partners = partners
-      console.log(this.partners);
-
-      // this.updateTotalDiff();
-
-    });
+      });
   }
 
+  initPartners(partners: any[]) {
+    for (const partner of partners) {
+      partner['records'] = partner.ownerships.reduce((a: any, c: any) => {
+        return a.concat({ ...c.record, balance: c.balance });
+      }, []);
+      this.total += partner['records'].reduce((a: any, c: any) => {
+        return a += (parseFloat(c.stock_close) * c.balance);
+      }, 0);
+      this.prevTotal += partner['records'].reduce((a: any, c: any) => {
+        return a += (parseFloat(c.previous_close) * c.balance);
+      }, 0);
+
+    }
+    this.partners = partners;
+    this.updateTotalDiff();
+  }
   updateTotalDiff(): void {
     const formatter = new Intl.NumberFormat('hi', {
       style: 'currency',

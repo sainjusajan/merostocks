@@ -1,0 +1,173 @@
+<div class="text-center mb-4">
+
+  <h1 class="h3 mb-3 mt60">
+    Create a Partner
+  </h1>
+</div>
+
+
+
+<div class="container">
+  <form class="form-signin" [formGroup]="createPartnerForm" (ngSubmit)="register()">
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-label-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+
+            <input type="text" formControlName="name" name="username" matInput>
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.name.errors">
+            <span *ngIf="f.name.errors.required">Name is required</span>
+          </mat-error>
+        </div>
+        <div class="form-label-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>DMAT Number</mat-label>
+
+            <input type="number" formControlName="dmat_number" name="username" matInput>
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.dmat_number.errors">
+            <span *ngIf="f.dmat_number.errors.required">DMAT Number is required</span>
+          </mat-error>
+        </div>
+        <div class="form-label-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>CRN Number</mat-label>
+
+            <input type="text" formControlName="crn_number" name="username" matInput>
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.crn_number.errors">
+            <span *ngIf="f.crn_number.errors.required">Crn Number is required</span>
+          </mat-error>
+        </div>
+
+        <div class="form-label-group">
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+
+            <input type="text"  formControlName="citizenship_number" name="password" matInput>
+          </mat-form-field>
+          <mat-error *ngIf="submitted && f.citizenship_number.errors">
+            <span *ngIf="f.citizenship_number.errors.required">Citizenship is required</span>
+          </mat-error>
+        </div>
+
+      </div>
+    <div class="col-md-4">
+
+      <div class="form-label-group">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Father Name</mat-label>
+
+          <input type="text" formControlName="father_name" name="password" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="submitted && f.father_name.errors">
+          <span *ngIf="f.father_name.errors.required">Father Name is required</span>
+        </mat-error>
+      </div>
+      <div class="form-label-group">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>GrandFather Name</mat-label>
+
+          <input type="text" formControlName="grandfather_name" name="password" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="submitted && f.grandfather_name.errors">
+          <span *ngIf="f.grandfather_name.errors.required">Grandfather Name is required</span>
+        </mat-error>
+      </div>
+
+
+      <div class="form-label-group">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Account Number</mat-label>
+
+          <input type="text" formControlName="grandfather_name" name="password" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="submitted && f.grandfather_name.errors">
+          <span *ngIf="f.grandfather_name.errors.required">Grandfather Name is required</span>
+        </mat-error>
+      </div>
+      <div class="form-label-group">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Account title</mat-label>
+
+          <input type="text" formControlName="account_title" name="password" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="submitted && f.account_title.errors">
+          <span *ngIf="f.account_title.errors.required">Account Title is required</span>
+        </mat-error>
+      </div>
+
+    </div>
+    <div class="col-md-4">
+      <div class="form-label-group">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Email Address</mat-label>
+
+          <input type="text" formControlName="email_address" name="password" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="submitted && f.email_address.errors">
+          <span *ngIf="f.email_address.errors.required">Email is required</span>
+        </mat-error>
+      </div>
+      <div class="form-label-group">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Beneficiary bank</mat-label>
+
+          <input type="text" formControlName="beneficiary_bank" name="password" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="submitted && f.beneficiary_bank.errors">
+          <span *ngIf="f.beneficiary_bank.errors.required">Beneficiary bank is required</span>
+        </mat-error>
+      </div>
+
+
+
+      <div class="form-label-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input formControlName="date_of_birth" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
+        <!--    <input formControlName="date" type="date" matInput>-->
+        <mat-error *ngIf="submitted && f.date_of_birth.errors">
+          <span *ngIf="f.date_of_birth.errors.required">Date is required</span>
+        </mat-error>
+      </div>
+
+
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="checkbox mb-3 text-danger" *ngIf="loginError">
+          Login failed. Please try again.
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary btn-block submit-btn" [disabled]="busy">
+          <span *ngIf="!busy">Create</span>
+          <mat-spinner *ngIf="busy" [diameter]="35"></mat-spinner>
+        </button>
+
+        <div class="small text-secondary mt-3 d-none d-sm-flex">
+          <!--    <strong>Example logins:</strong>-->
+          <!--    <ul>-->
+          <!--      <li>admin: securePassword</li>-->
+          <!--      <li>test1: password1</li>-->
+          <!--      <li>test2: password2</li>-->
+          <!--    </ul>-->
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

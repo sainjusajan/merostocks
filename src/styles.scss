@@ -1,3 +1,6 @@
+@import '~ngx-toastr/toastr';
+
+
 .diff-data {
   position: absolute;
   right: 10px;
@@ -54,8 +57,8 @@ mat-toolbar.mat-primary {
 
 /* Change the white to any color */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active
 {
   box-shadow: 0 0 0 30px #3c3b3b inset !important;

@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { map, tap, delay, finalize, switchMap } from 'rxjs/operators';
 import { IUserId, IApplicationUser, INIT_APPLICATION_USER } from '../models/application-user';
 import { environment } from 'src/environments/environment';
-import {Endpoints} from '../config';
+import { Endpoints } from '../config';
 
 interface LoginResult {
   access: string;
@@ -97,11 +97,22 @@ export class AuthService implements OnDestroy {
           console.log('register', res);
         }),
         switchMap(res => {
-          return this.login(res.user.email, data.password)
+          return this.login(res.user.email, data.password);
         })
-      )
+      );
   }
 
+
+
+  createPartner(data: any) {
+    return this.http.post<any>(`${this.apiUrl}/${this.endpoints.createPartner}`, data)
+      .pipe(
+        tap(res => {
+          console.log('register', res);
+          return res;
+        })
+      );
+  }
 
   logout() {
     this.clearLocalStorage();

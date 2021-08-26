@@ -19,6 +19,7 @@ import {MatInputModule} from '@angular/material/input';
 import { IonicModule } from '@ionic/angular';
 import { RegisterComponent } from './register/register.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,

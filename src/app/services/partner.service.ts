@@ -1,8 +1,8 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable, throwError} from 'rxjs';
-import {retry, catchError} from 'rxjs/operators';
-import {environment} from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +26,8 @@ export class PartnerService {
 
 
   // GET
-  getPartners(): Observable<any> {
-    return this.http.get<any>(`${this.baseurl}/customer/partners`)
+  getPartners(init = false): Observable<any> {
+    return this.http.get<any>(`${this.baseurl}/customer/partners${init ? '?init=yes' : ''}`)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
