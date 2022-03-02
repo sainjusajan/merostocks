@@ -33,6 +33,13 @@ export class PartnerService {
         catchError(this.errorHandl)
       );
   }
+  getLiveData(init = false): Observable<any> {
+    return this.http.get<any>(`${this.baseurl}/customer/partners?live=yes${init ? '&init=yes' : ''}`)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl)
+      );
+  }
 
 
   // Error handling

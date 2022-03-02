@@ -1,7 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IApplicationUser } from '../models/application-user';
@@ -9,12 +7,11 @@ import { AuthService } from '../services/auth.service';
 import { PartnerService } from '../services/partner.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-live',
+  templateUrl: './live.component.html',
+  styleUrls: ['./live.component.scss']
 })
-
-export class HomeComponent implements OnInit, OnDestroy {
+export class LiveComponent implements OnInit {
   loading = false;
   accessToken: any;
   refreshToken: any;
@@ -39,7 +36,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.refreshData(true);
-    this.refreshData(false);
     this.accessToken = localStorage.getItem('access_token');
     this.refreshToken = localStorage.getItem('refresh_token');
   }
@@ -62,7 +58,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.authService.user$.pipe(
       switchMap((x: IApplicationUser) => {
-        return this.partnerService.getPartners(init);
+        return this.partnerService.getLiveData(init);
       })
     )
       .subscribe(partners => {
